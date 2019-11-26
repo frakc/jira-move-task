@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-custom_jira_field=""
 if [ -z "$jira_project_name" ]; then
     echo "Jira Project Name is required."
     usage

@@ -4,11 +4,11 @@ title: |-
 summary: |
   This step update optional parameter and assign new status.
 description: |
-    This step update optional parameter and assign new status.
+    This step update optional parameter and move all tasks from one column to another . Mainly to quckly dump everything from code review to QA
 
-website: https://github.com/Siemian/bitrise-step-ng-jira-step
-source_code_url: https://github.com/Siemian/bitrise-step-ng-jira-step
-support_url: https://github.com/Siemian/bitrise-step-ng-jira-step/issues
+website: https://github.com/frakc/jira-move-task
+source_code_url: https://github.com/frakc/jira-move-task
+support_url: https://github.com/frakc/jira-move-task/issues
 host_os_tags:
   - osx-10.10
   - ubuntu-16.04
@@ -40,7 +40,7 @@ toolkit:
 
 
 inputs:
-  - user:
+  - jira_user:
     opts:
       title: "JIRA User"
       summary: admin
@@ -49,7 +49,7 @@ inputs:
       is_expand: true
       is_required: true
       value_options: []
-  - jira_user:
+  - jira_token:
     opts:
       title: "JIRA API Token"
       summary: Token created for supplied user
