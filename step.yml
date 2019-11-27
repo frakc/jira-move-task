@@ -4,7 +4,7 @@ title: |-
 summary: |
   This step update optional parameter and assign new status.
 description: |
-    This step update optional parameter and move all tasks from one column to another . Mainly to quckly dump everything from code review to QA
+    This step update optional parameter and move all tasks from one column to another . Mainly to quckly dump everything from code review to QA. It does NOT audit git log and thus move ALL task from column
 
 website: https://github.com/frakc/jira-move-task
 source_code_url: https://github.com/frakc/jira-move-task
