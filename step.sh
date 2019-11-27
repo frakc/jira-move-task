@@ -85,4 +85,11 @@ do
                 fi
 
 done
-curl -X POST -H 'Content-type: application/json' --data '{"text":"Allow me to reintroduce myself!"}' $slack_webhoock
+for task in ${tasks_to_close}
+release_message="Next build resolves following issues \n\`\`\`"
+do
+    release_message="$release_message $jira_url/browse/$task\n"
+done
+release_message="$release_message\n\`\`\`" 
+echo $release_message
+curl -X POST -H 'Content-type: application/json' --data '{"text":"$release_message"}' $slack_webhoock
