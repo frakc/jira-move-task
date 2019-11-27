@@ -107,4 +107,12 @@ inputs:
         ex.: 15
       is_expand: true
       is_required: false
+  - slack_webhoock:
+    opts:
+      title: " slack webhoock"
+      summary: "sends message listing transitioning tasks"
+      description: |
+        ex.: 15
+      is_expand: true
+      is_required: false
 
