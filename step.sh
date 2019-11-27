@@ -1,5 +1,5 @@
 #!/bin/bash
-
+brew install jq
 if [ -z "$jira_project_name" ]; then
     echo "Jira Project Name is required."
     usage
@@ -85,3 +85,4 @@ do
                 fi
 
 done
+curl -X POST -H 'Content-type: application/json' --data '{"text":"Allow me to reintroduce myself!"}' $slack_webhoock
