@@ -49,7 +49,6 @@ inputs:
         User with privelige to move tasks
       is_expand: true
       is_required: true
-      value_options: []
   - jira_token:
     opts:
       title: "JIRA API Token"
@@ -60,7 +59,6 @@ inputs:
       is_expand: true
       is_sensitive: true
       is_required: true
-      value_options: []
   - jira_url:
     opts:
       title: "JIRA Host"
@@ -69,7 +67,6 @@ inputs:
         ex.: https://[team].atlassian.net
       is_expand: true
       is_required: true
-      value_options: []
   - to_status:
     opts:
       title: "JIRA resulting status"
@@ -78,7 +75,6 @@ inputs:
         ex.: Ready for QA
       is_expand: true
       is_required: true
-      value_options: []    
   - from_status:
     opts:
       title: "JIRA starting status"
@@ -87,7 +83,6 @@ inputs:
         ex.: "Team Review"
       is_expand: true
       is_required: true
-      value_options: []
   - jira_project_name:
     opts:
       title: "Jira project tag"
@@ -96,7 +91,6 @@ inputs:
         ex. : BTTT
       is_expand: true
       is_required: true
-      value_options: []
   - custom_jira_field:
     opts:
       title: " version field which will be updated"
@@ -105,7 +99,6 @@ inputs:
         ex.: Build number
       is_expand: true
       is_required: false
-      value_options: []
   - custom_jira_value:
     opts:
       title: " extra value"
@@ -114,5 +107,4 @@ inputs:
         ex.: 15
       is_expand: true
       is_required: false
-      value_options: []
 
