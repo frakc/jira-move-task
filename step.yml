@@ -114,5 +114,6 @@ inputs:
       description: |
         ex.: 15
       is_expand: true
-      is_required: false
+      is_required: true
+      is_sensitive: true
 
