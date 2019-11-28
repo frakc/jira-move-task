@@ -58,7 +58,7 @@ do
             fi
             	structure=$(curl -s \
                     -H "Authorization: Basic $token" \
-                    "$jira_url/rest/api/2/issue/$task/transitions"
+                    "$jira_url/rest/api/2/issue/$task"
                 )
                 echo "structure $structure"
                 transition_id=$(curl -s \
