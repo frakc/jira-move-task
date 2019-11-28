@@ -5,7 +5,7 @@ jira_url="https://alterplay.atlassian.net"
 jira_token="WVhMArz7RhEaWkSvHqMk1E4F"
 from_status="Team Review"
 to_status="Ready for QA"
-slack_webhoock="https://hooks.slack.com/services/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"
+slack_webhoock="https://hooks.slack.com/services/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"
 if [ -z "$jira_project_name" ]; then
     echo "Jira Project Name is required."
     usage
@@ -91,19 +91,13 @@ do
 
 done
 release_message="Next build resolves following issues  \n\`\`\`\n"
-array=( one two three )
-for task in ${array[@]}
+for task in ${tasks_to_close}
 do
     release_message="$release_message$jira_url/browse/$task\n"
 done
-release_message="$release_message\n\`\`\` " 
-echo -e $release_message
-# release_message="\`\`\`a\na\n\`\`\`"
+release_message="$release_message\n\`\`\` "
+release_message="\"$release_message\""
+slack_query=$(jq -n --argjson message "$release_message" '{text:$message}');
 
-query=$(jq -n \
-                        --arg message $release_message \
-                        "{text:\$message}"
-                    );
-
-echo "query $query"
-curl -X POST -H "Content-type: application/json" --data "$query" $slack_webhoock
+echo "query $slack_query"
+echo $(curl -X POST -H "Content-type: application/json" --data "$slack_query" $slack_webhoock)

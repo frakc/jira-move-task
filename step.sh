@@ -42,7 +42,6 @@ tasks_to_close=$(curl -s \
 )
 
 echo "Tasks to transition: $tasks_to_close"
-
 for task in ${tasks_to_close}
 do
             echo "Transitioning $task"
@@ -85,11 +84,14 @@ do
                 fi
 
 done
+release_message="Next build resolves following issues  \n\`\`\`\n"
 for task in ${tasks_to_close}
-release_message="Next build resolves following issues \n\`\`\`"
 do
-    release_message="$release_message $jira_url/browse/$task\n"
+    release_message="$release_message$jira_url/browse/$task\n"
 done
-release_message="$release_message\n\`\`\`" 
-echo $release_message
-curl -X POST -H 'Content-type: application/json' --data '{"text":"$release_message"}' $slack_webhoock
+release_message="$release_message\n\`\`\` "
+release_message="\"$release_message\""
+slack_query=$(jq -n --argjson message "$release_message" '{text:$message}');
+
+echo "query $slack_query"
+echo $(curl -X POST -H "Content-type: application/json" --data "$slack_query" $slack_webhoock)
