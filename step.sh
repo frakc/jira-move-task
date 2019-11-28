@@ -56,7 +56,11 @@ do
                     --data "$query" \
                     "$jira_url/rest/api/2/issue/$task"
             fi
-
+            	structure=$(curl -s \
+                    -H "Authorization: Basic $token" \
+                    "$jira_url/rest/api/2/issue/$task/transitions"
+                )
+                echo $structure
                 transition_id=$(curl -s \
                     -H "Authorization: Basic $token" \
                     "$jira_url/rest/api/2/issue/$task/transitions" |
