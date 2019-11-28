@@ -46,7 +46,7 @@
 			query=$(jq -n \
 			--arg c_value "$custom_jira_value" \
 			--arg c_name "$custom_jira_field" \
-			'{ "fields": { ($c_name) : { $c_value } } }'
+			'{ "fields": { ($c_name) : { "value": $c_value } } }'
 			);
 
 			curl \
