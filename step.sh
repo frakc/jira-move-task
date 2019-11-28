@@ -41,10 +41,10 @@ echo "Tasks to transition: $tasks_to_close"
 for task in ${tasks_to_close}
 do
             echo "Transitioning $task"
-            if [[ -n "$custom_jira_field" && -n "$custom_jira_field" ]]; then
-                echo "Setting version of $task to $custom_jira_field"
+            if [[ -n "$custom_jira_value" && -n "$custom_jira_field" ]]; then
+                echo "Setting custom_jira_field of $task to $custom_jira_value"
                     query=$(jq -n \
-                        --arg version $custom_jira_field \
+                        --arg version $custom_jira_value \
                         "{ fields: { $custom_jira_field: [ \$version ] } }"
                     );
 
