@@ -44,8 +44,8 @@ do
             if [[ -n "$custom_jira_value" && -n "$custom_jira_field" ]]; then
                 echo "Setting custom_jira_field of $task to $custom_jira_value"
                     query=$(jq -n \
-                        --arg c_value $custom_jira_value --arg c_name $custom_jira_field\
-                        "{ fields: { \$c_name: [ \$c_value ] } }"
+                        --arg c_value $custom_jira_value --arg c_name $custom_jira_field \
+                        '{ fields: { $c_name: [ $c_value ] } }'
                     );
 
                 curl \
