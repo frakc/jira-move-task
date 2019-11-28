@@ -5,7 +5,7 @@
 
 	if [ -z "$jira_url" ]; then
 		echo "Jira Url is required."
-		
+
 	fi
 
 	if [ -z "$jira_token" ]; then
@@ -41,26 +41,22 @@
 	for task in ${tasks_to_close}
 	do
 		echo "Transitioning $task"
-		# if [[ -n "$custom_jira_value" && -n "$custom_jira_field" ]]; then
-		# 	echo "Setting $custom_jira_field of $task to $custom_jira_value"
-		# 	query=$(jq -n \
-		# 	--arg c_value "$custom_jira_value" \
-		# 	--arg c_name "$custom_jira_field" \
-		# 	'{ "fields": { ($c_name) : [ $c_value ] } }'
-		# 	);
+		if [[ -n "$custom_jira_value" && -n "$custom_jira_field" ]]; then
+			echo "Setting $custom_jira_field of $task to $custom_jira_value"
+			query=$(jq -n \
+			--arg c_value "$custom_jira_value" \
+			--arg c_name "$custom_jira_field" \
+			'{ "fields": { ($c_name) : { $c_value } }'
+			);
 
-		# 	curl \
-		# 	-H "Content-Type: application/json" \
-		# 	-H "Authorization: Basic $token" \
-		# 	--request PUT \
-		# 	--data "$query" \
-		# 	"$jira_url/rest/api/2/issue/$task"
-		# fi
-		structure=$(curl -s \
-		-H "Authorization: Basic $token" \
-		"$jira_url/rest/api/2/issue/$task"
-		)
-		echo "structure $structure"
+			curl \
+			-H "Content-Type: application/json" \
+			-H "Authorization: Basic $token" \
+			--request PUT \
+			--data "$query" \
+			"$jira_url/rest/api/2/issue/$task"
+		fi
+
 		transition_id=$(curl -s \
 		-H "Authorization: Basic $token" \
 		"$jira_url/rest/api/2/issue/$task/transitions" |
