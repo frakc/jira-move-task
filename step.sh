@@ -60,7 +60,7 @@ do
                     -H "Authorization: Basic $token" \
                     "$jira_url/rest/api/2/issue/$task/transitions"
                 )
-                echo $structure
+                echo "structure $structure"
                 transition_id=$(curl -s \
                     -H "Authorization: Basic $token" \
                     "$jira_url/rest/api/2/issue/$task/transitions" |
