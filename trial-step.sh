@@ -6,6 +6,9 @@ jira_token="WVhMArz7RhEaWkSvHqMk1E4F"
 from_status="Team Review"
 to_status="Ready for QA"
 slack_webhoock="https://hooks.slack.com/services/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"
+custom_jira_value="6"
+custom_jira_field="BUILD NUMBER"
+
 if [ -z "$jira_project_name" ]; then
     echo "Jira Project Name is required."
     usage
@@ -25,13 +28,19 @@ if [ -z "$from_status" ]; then
     echo "Status of tasks for deployment is required."
     usage
 fi
-
+if [ -z "$custom_jira_field" ]; then
+    echo "custom_jira_field is empty"
+    usage
+fi
+if [ -z "$custom_jira_value" ]; then
+    echo "custom_jira_value is empty."
+    usage
+fi
 length=${#jira_project_name}
 
 cred="artem@alty.co:$jira_token"
 
 token=`echo -n $cred | base64`
-echo "token $token"
 query=$(jq -n \
     --arg jql "project = $jira_project_name AND status = '$from_status'" \
     '{ jql: $jql, startAt: 0, maxResults: 200, fields: [ "id" ], fieldsByKeys: false }'
@@ -51,11 +60,12 @@ echo "Tasks to transition: $tasks_to_close"
 for task in ${tasks_to_close}
 do
             echo "Transitioning $task"
-            if [[ -n "$custom_jira_field" && -n "$custom_jira_field" ]]; then
-                echo "Setting version of $task to $custom_jira_field"
+            if [[ -ne "$custom_jira_field" && -ne "$custom_jira_value" ]]; then
+                echo "Setting $custom_jira_field of $task to $custom_jira_field"
                     query=$(jq -n \
-                        --arg version $custom_jira_field \
-                        "{ fields: { $custom_jira_field: [ \$version ] } }"
+                        --arg c_value "$custom_jira_value" \
+                        --arg c_name "$custom_jira_field" \
+                        '{ "fields": { ($c_name) : [ $c_value ] } }'
                     );
 
                 curl \
