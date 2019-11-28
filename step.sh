@@ -1,22 +1,19 @@
 #!/bin/bash
 if [ -z "$jira_project_name" ]; then
     echo "Jira Project Name is required."
-    usage
 fi
 
 if [ -z "$jira_url" ]; then
     echo "Jira Url is required."
-    usage
+   
 fi
 
 if [ -z "$jira_token" ]; then
     echo "Jira token is required."
-    usage
 fi
 
 if [ -z "$from_status" ]; then
     echo "Status of tasks for deployment is required."
-    usage
 fi
 
 length=${#jira_project_name}

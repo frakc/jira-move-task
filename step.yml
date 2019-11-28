@@ -45,7 +45,7 @@ inputs:
   - jira_user:
     opts:
       title: "JIRA User"
-      is_sensitive: true
+      is_sensitive: false
       summary: admin
       description: |
         User with privelige to move tasks
@@ -59,7 +59,7 @@ inputs:
         API token is used to authenticate with JIRA API. 
         It can be created here: https://id.atlassian.com/manage/api-tokens?_ga=2.43946604.875494627.1562923837-75487430.1434788493
       is_expand: true
-      is_sensitive: true
+      is_sensitive: false
       is_required: true
   - jira_url:
     opts:
@@ -117,5 +117,5 @@ inputs:
         ex.: 15
       is_expand: true
       is_required: true
-      is_sensitive: true
+      is_sensitive: false
 
