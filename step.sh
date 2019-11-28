@@ -1,5 +1,5 @@
 #!/bin/bash
-brew install jq
+noninteractive apt-get install -qq -y jq > /dev/null
 if [ -z "$jira_project_name" ]; then
     echo "Jira Project Name is required."
     usage
