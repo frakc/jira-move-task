@@ -109,6 +109,15 @@ inputs:
         ex.: 15
       is_expand: true
       is_required: false
+  - changelogpath:
+    opts:
+      title: " path to write changelogs "
+      summary: "Task titles will be writen to specified file"
+      description: |
+        ex.: changelog.txt
+      is_expand: true
+      is_required: false
+      is_sensitive: false   
   - slack_webhoock:
     opts:
       title: " slack webhoock"

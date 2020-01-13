@@ -1,14 +1,15 @@
 #!/bin/bash
 
-jira_project_name="BTTES"
+jira_project_name="EB3AND"
 jira_url="https://alterplay.atlassian.net"
 jira_token="WVhMArz7RhEaWkSvHqMk1E4F"
 from_status="Team Review"
 to_status="Ready for QA"
 slack_webhoock="https://hooks.slack.com/services/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"
 custom_jira_value="6"
-custom_jira_field="BUILD NUMBER"
+custom_jira_field="customfield_11360"
 
+changelogpath="changelog.txt"
 if [ -z "$jira_project_name" ]; then
     echo "Jira Project Name is required."
     usage
@@ -55,17 +56,17 @@ tasks_to_close=$(curl -s \
     --data "$query" \
     "$jira_url/rest/api/2/search" | jq -r '.issues[].key'
 )
-
+change_log=""
 echo "Tasks to transition: $tasks_to_close"
 for task in ${tasks_to_close}
 do
             echo "Transitioning $task"
             if [[ -ne "$custom_jira_field" && -ne "$custom_jira_value" ]]; then
-                echo "Setting $custom_jira_field of $task to $custom_jira_field"
+                echo "Setting $custom_jira_field of $task to $custom_jira_value"
                     query=$(jq -n \
-                        --arg c_value "$custom_jira_value" \
-                        --arg c_name "$custom_jira_field" \
-                        '{ "fields": { ($c_name) : [ $c_value ] } }'
+                    --arg c_value "$custom_jira_value" \
+                    --arg c_name "$custom_jira_field" \
+                    '{ "fields": { ($c_name) : { "value": $c_value } } }'
                     );
 
                 curl \
@@ -75,13 +76,19 @@ do
                     --data "$query" \
                     "$jira_url/rest/api/2/issue/$task"
             fi
-
-                transition_id=$(curl -s \
+            task_title=$(curl \
+                    -H "Content-Type: application/json" \
+                    -H "Authorization: Basic $token" \
+                    --request GET \
+                    "$jira_url/rest/api/2/issue/$task" | 
+                    jq -r '.fields.summary')    
+            change_log="$change_log"$'\n'"$task_title"
+            transition_id=$(curl -s \
                     -H "Authorization: Basic $token" \
                     "$jira_url/rest/api/2/issue/$task/transitions" |
                     jq -r --arg t "$to_status"  '.transitions[] | select( .to.name == $t ) | .id'
                 )
-                echo "ids: $transition_id"
+            echo "ids: $transition_id"
                 if [ -n "$transition_id" ]; then
                     echo "Transitioning  $task to $to_status"
                     query=$(jq -n \
@@ -108,6 +115,8 @@ done
 release_message="$release_message\n\`\`\` "
 release_message="\"$release_message\""
 slack_query=$(jq -n --argjson message "$release_message" '{text:$message}');
-
+echo "======"
+echo "$change_log"
+echo "$change_log" > $changelogpath
 echo "query $slack_query"
 echo $(curl -X POST -H "Content-type: application/json" --data "$slack_query" $slack_webhoock)
