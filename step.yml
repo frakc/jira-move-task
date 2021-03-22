@@ -109,6 +109,14 @@ inputs:
         ex.: 15
       is_expand: true
       is_required: false
+  - label_title_jira:
+      opts:
+        title: " jira task title"
+        summary: "filter [Android] or [iOS] labels"
+        description: |
+          ex.: [Android]
+        is_expand: true
+        is_required: false
   - changelogpath:
     opts:
       title: " path to write changelogs "

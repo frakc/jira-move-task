@@ -15,6 +15,9 @@ fi
 if [ -z "$from_status" ]; then
 	echo "Status of tasks for deployment is required."
 fi
+if [ -z "$label_title_jira" ]; then
+	echo "task label is required"
+fi
 
 length=${#jira_project_name}
 
