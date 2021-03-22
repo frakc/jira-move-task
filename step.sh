@@ -26,7 +26,7 @@ cred="$jira_user:$jira_token"
 token=`echo -n $cred | base64`
 echo "label $label_title_jira"
 query=$(jq -n \
---arg jql "project = $jira_project_name AND status = '$from_status' AND text ~ $label_title_jira" \
+--arg jql "project = $jira_project_name AND status = '$from_status' " \
 '{ jql: $jql, startAt: 0, maxResults: 200, fields: [ "id" ], fieldsByKeys: false }'
 );
 
