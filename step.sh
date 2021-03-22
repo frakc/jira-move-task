@@ -24,7 +24,7 @@ length=${#jira_project_name}
 cred="$jira_user:$jira_token"
 
 token=`echo -n $cred | base64`
-echo "token $token"
+echo "label $label_title_jira"
 query=$(jq -n \
 --arg jql "project = $jira_project_name AND status = '$from_status' AND text ~ \"$label_title_jira\"" \
 '{ jql: $jql, startAt: 0, maxResults: 200, fields: [ "id" ], fieldsByKeys: false }'
