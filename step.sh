@@ -30,7 +30,7 @@ query=$(jq -n \
 '{ jql: $jql, startAt: 0, maxResults: 200, fields: [ "id" ], fieldsByKeys: false }'
 );
 
-echo "Query to be executed in Jira: $query"
+#echo "Query to be executed in Jira: $query"
 
 tasks_to_close=$(curl -s \
 -H "Content-Type: application/json" \
@@ -80,7 +80,7 @@ do
 		--arg ti $transition_id \
 		'{ transition: { id: $ti } }'
 		);
-		echo "query: $query"
+#		echo "query: $query"
 		curl \
 		-H "Content-Type: application/json" \
 		-H "Authorization: Basic $token" \
