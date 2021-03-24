@@ -30,7 +30,7 @@ query=$(jq -n \
 '{ jql: $jql, startAt: 0, maxResults: 200, fields: [ "id" ], fieldsByKeys: false }'
 );
 
-#echo "Query to be executed in Jira: $query"
+echo "Query to be executed in Jira: $query"
 
 tasks_to_close=$(curl -s \
 -H "Content-Type: application/json" \
