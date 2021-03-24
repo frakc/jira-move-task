@@ -24,13 +24,13 @@ length=${#jira_project_name}
 cred="$jira_user:$jira_token"
 
 token=`echo -n $cred | base64`
-echo "label $token"
+#echo "label $token"
 query=$(jq -n \
 --arg jql "project = $jira_project_name AND status = '$from_status' AND text ~ $label_title_jira" \
 '{ jql: $jql, startAt: 0, maxResults: 200, fields: [ "id" ], fieldsByKeys: false }'
 );
 
-echo "Query to be executed in Jira: $query"
+#echo "Query to be executed in Jira: $query"
 
 tasks_to_close=$(curl -s \
 -H "Content-Type: application/json" \
