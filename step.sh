@@ -31,28 +31,29 @@ query=$(jq -n \
 '{ jql: $jql, startAt: 0, maxResults: 200, fields: [ "id" ], fieldsByKeys: false }'
 );
 
-echo "Query to be executed in Jira: $query"
-echo "--------------"
-echo "curl log start"
-echo "--------------"
+# echo "Query to be executed in Jira: $query"
+# echo "--------------"
+# echo "curl log start"
+# echo "--------------"
 
-curl -i \
--H "Content-Type: application/json" \
--H "Authorization: Basic $token" \
---request POST \
---data "$query" \
-"$jira_url/rest/api/2/search" \
---http1.1
+# curl -i \
+# -H "Content-Type: application/json" \
+# -H "Authorization: Basic $token" \
+# --request POST \
+# --data "$query" \
+# "$jira_url/rest/api/2/search" \
+# --http1.1
 
-echo "--------------"
-echo "curl log end"
-echo "--------------"
+# echo "--------------"
+# echo "curl log end"
+# echo "--------------"
 tasks_to_close=$(curl -s \
 -H "Content-Type: application/json" \
 -H "Authorization: Basic $token" \
 --request POST \
 --data "$query" \
-"$jira_url/rest/api/2/search" | jq -r '.issues[].key'
+"$jira_url/rest/api/2/search" \
+--http1.1 | jq -r '.issues[].key'
 )
 change_log=""
 echo "Tasks to transition: $tasks_to_close"
