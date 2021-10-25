@@ -24,7 +24,7 @@ length=${#jira_project_name}
 cred="$jira_user:$jira_token"
 
 token=`echo -n $cred | base64`
-echo jira_url
+echo "jira_url $jira_url"
 echo "label $token"
 query=$(jq -n \
 --arg jql "project = $jira_project_name AND status = '$from_status' AND text ~ $label_title_jira" \
