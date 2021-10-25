@@ -41,7 +41,8 @@ curl -i \
 -H "Authorization: Basic $token" \
 --request POST \
 --data "$query" \
-"$jira_url/rest/api/2/search"
+"$jira_url/rest/api/2/search" \
+--http1.1
 
 echo "--------------"
 echo "curl log end"
