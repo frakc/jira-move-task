@@ -36,7 +36,7 @@ echo "--------------"
 echo "curl log start"
 echo "--------------"
 
-curl -v \
+curl -i \
 -H "Content-Type: application/json" \
 -H "Authorization: Basic $token" \
 --request POST \
