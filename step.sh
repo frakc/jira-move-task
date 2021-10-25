@@ -32,12 +32,20 @@ query=$(jq -n \
 );
 
 echo "Query to be executed in Jira: $query"
+echo "--------------"
+echo "curl log start"
+echo "--------------"
+
 curl -v \
 -H "Content-Type: application/json" \
 -H "Authorization: Basic $token" \
 --request POST \
 --data "$query" \
 "$jira_url/rest/api/2/search"
+
+echo "--------------"
+echo "curl log end"
+echo "--------------"
 tasks_to_close=$(curl -s \
 -H "Content-Type: application/json" \
 -H "Authorization: Basic $token" \
